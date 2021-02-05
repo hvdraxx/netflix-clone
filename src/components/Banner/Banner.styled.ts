@@ -12,14 +12,23 @@ const Container = styled.div<{imageUrl: string}>`
   color: white;
 `
 const Content = styled.div`
-  margin-left: 30px;
-  padding-top: 140px;
+  padding-top: 120px;
+  padding-left: 30px;
+  padding-right: 30px;
   height: 190px;
+
+  @media all and (max-width: 450px) {
+    padding-top: 150px;
+  }
 `
 const Title = styled.h1`
   font-size: 3rem;
   font-weight: 800;
   padding-bottom: 0.3rem;
+
+  @media all and (max-width: 450px) {
+    font-size: 2.2rem;
+  }
 `
 const Button = styled.button`
   outline: none;
@@ -39,7 +48,6 @@ const Button = styled.button`
   }
 `
 const Description = styled.div`
-  width: 45rem;
   max-width: 360px;
   height: 80px;
   line-height: 1.3;
