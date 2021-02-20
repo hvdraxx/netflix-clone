@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 const Container = styled.div`
   margin: 10px 20px 0 20px;
@@ -7,21 +7,23 @@ const Container = styled.div`
   &:last-child {
     margin-bottom: 50px;
   }
-`
+`;
 const PostersContainer = styled.div`
   display: flex;
   overflow-y: hidden;
-  overflow-x: scroll;
+  overflow-x: auto;
   padding: 20px;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 
   &::-webkit-scrollbar {
-    display: none
+    display: none;
   }
-`
-const Poster = styled.img<{large: boolean}>`
+`;
+const Poster = styled.img<{ large: boolean }>`
   object-fit: contain;
   width: 100%;
-  max-height: ${props => props.large ? "320px" : "150px"};
+  max-height: ${(props) => (props.large ? "320px" : "150px")};
   cursor: pointer;
   transition: transform 450ms;
 
@@ -30,12 +32,8 @@ const Poster = styled.img<{large: boolean}>`
   }
 
   &:hover {
-    transform: ${props => props.large ? "1.09" : "1.08"}
+    transform: ${(props) => (props.large ? "1.09" : "1.08")};
   }
-`
+`;
 
-export {
-  Container,
-  PostersContainer,
-  Poster
-}
+export { Container, PostersContainer, Poster };
