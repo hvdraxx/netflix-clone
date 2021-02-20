@@ -1,16 +1,17 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
-const Container = styled.div<{imageUrl: string}>`
+const Container = styled.div<{ imageUrl: string }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   object-fit: contain;
   height: 550px;
   background-size: cover;
-  background-image: url(${props => props.imageUrl});
+  background-image: url(${(props) => props.imageUrl});
   background-position: center 10%;
+  background-color: #212121;
   color: white;
-`
+`;
 const Content = styled.div`
   padding-top: 120px;
   padding-left: 30px;
@@ -20,7 +21,7 @@ const Content = styled.div`
   @media all and (max-width: 450px) {
     padding-top: 150px;
   }
-`
+`;
 const Title = styled.h1`
   font-size: 3rem;
   font-weight: 800;
@@ -29,7 +30,7 @@ const Title = styled.h1`
   @media all and (max-width: 450px) {
     font-size: 2.2rem;
   }
-`
+`;
 const Button = styled.button`
   outline: none;
   border: none;
@@ -46,14 +47,14 @@ const Button = styled.button`
     background-color: #e6e6e6;
     transition: all 0.2s;
   }
-`
+`;
 const Description = styled.div`
   max-width: 360px;
   height: 80px;
   line-height: 1.3;
   padding-top: 1rem;
   font-size: 0.9rem;
-`
+`;
 const Fade = styled.div`
   height: 7.4rem;
   background-image: linear-gradient(
@@ -62,13 +63,6 @@ const Fade = styled.div`
     rgba(0, 0, 0, 0.31),
     #000
   );
-`
+`;
 
-export {
-  Container,
-  Content,
-  Title,
-  Button,
-  Description,
-  Fade
-}
+export { Container, Content, Title, Button, Description, Fade };

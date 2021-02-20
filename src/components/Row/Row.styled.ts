@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  margin: 10px 20px 0 20px;
+  margin: 10px 50px 0 50px;
   color: white;
 
   &:last-child {
@@ -9,10 +9,10 @@ const Container = styled.div`
   }
 `;
 const PostersContainer = styled.div`
+  position: relative;
   display: flex;
-  overflow-y: hidden;
-  overflow-x: auto;
-  padding: 20px;
+  overflow-x: scroll;
+  padding: 20px 0;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 
@@ -22,10 +22,11 @@ const PostersContainer = styled.div`
 `;
 const Poster = styled.img<{ large: boolean }>`
   object-fit: contain;
-  width: 100%;
-  max-height: ${(props) => (props.large ? "320px" : "150px")};
+  min-width: ${(props) => (props.large ? "213px" : "266px")};
+  height: ${(props) => (props.large ? "320px" : "150px")};
+  background-color: #090909;
   cursor: pointer;
-  transition: transform 450ms;
+  transition: all 450ms;
 
   &:not(:last-child) {
     margin-right: 20px;

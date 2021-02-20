@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import YouTube from "react-youtube";
 import movieTrailer from "movie-trailer";
 import axios from "../../utils/axios";
-import { IMovie, RowProps } from "../../types/types";
 import { Options } from "react-youtube";
+import "lazysizes";
+import "lazysizes/plugins/parent-fit/ls.parent-fit";
+import { IMovie, RowProps } from "../../types/types";
 import { Container, PostersContainer, Poster } from "./Row.styled";
 
 const baseURL = `https://image.tmdb.org/t/p/original/`;
@@ -11,6 +13,8 @@ const baseURL = `https://image.tmdb.org/t/p/original/`;
 function Row({ title, fetchURL, isLargeRow }: RowProps) {
   const [movies, setMovies] = useState<IMovie[]>([]);
   const [trailerUrl, setTrailerUrl] = useState<string | null>("");
+  const [allowScroll, setallowScroll] = useState(false);
+  const [mouseDownPos, setMouseDownPos] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -21,7 +25,8 @@ function Row({ title, fetchURL, isLargeRow }: RowProps) {
     fetchData();
   }, [fetchURL]);
 
-  const handleClick = (movie: IMovie) => {
+  const handleClick = (event: React.MouseEvent, movie: IMovie) => {
+    event?.stopPropagation();
     if (trailerUrl) {
       setTrailerUrl("");
     } else {
@@ -31,6 +36,27 @@ function Row({ title, fetchURL, isLargeRow }: RowProps) {
         const urlParams = new URLSearchParams(new URL(url).search);
         setTrailerUrl(urlParams.get("v"));
       });
+    }
+  };
+
+  const mouseDownHandler = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setallowScroll(true);
+    setMouseDownPos(event.clientX);
+  };
+
+  const mouseUpHandler = () => {
+    setallowScroll(false);
+  };
+
+  const scrollHandler = (event: React.MouseEvent) => {
+    event.preventDefault();
+    if (allowScroll) {
+      if (mouseDownPos <= event.clientX) {
+        event.currentTarget.scrollBy((mouseDownPos - event.clientX) / 15, 0);
+      } else {
+        event.currentTarget.scrollBy((mouseDownPos - event.clientX) / 15, 0);
+      }
     }
   };
 
@@ -46,10 +72,15 @@ function Row({ title, fetchURL, isLargeRow }: RowProps) {
     <Container>
       <h2>{title}</h2>
 
-      <PostersContainer className="scrollable-container">
+      <PostersContainer
+        onMouseDown={mouseDownHandler}
+        onMouseMove={scrollHandler}
+        onMouseUp={mouseUpHandler}
+      >
         {movies.map((movie) => (
           <Poster
-            src={`${baseURL}${
+            src="/images/img-placeholder.png"
+            data-srcset={`${baseURL}${
               isLargeRow
                 ? movie.poster_path
                 : movie.backdrop_path ?? movie.poster_path
@@ -57,8 +88,9 @@ function Row({ title, fetchURL, isLargeRow }: RowProps) {
             alt={movie.name}
             title={movie.name}
             key={movie.id}
-            onClick={() => handleClick(movie)}
+            onDoubleClick={(event) => handleClick(event, movie)}
             large={isLargeRow}
+            className="lazyload"
           />
         ))}
       </PostersContainer>
