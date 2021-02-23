@@ -23,4 +23,6 @@ export interface RowProps {
   title: string;
   fetchURL: string;
   isLargeRow: boolean;
+  activeRow: string;
+  setActiveRow(state: string): void;
 }
